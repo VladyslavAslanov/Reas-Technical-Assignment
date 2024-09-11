@@ -1,5 +1,11 @@
+import FormPage from "./components/FormPage.tsx"
+
 const App = () => {
-	return <div />
+	return (
+		<div>
+			<FormPage/>
+		</div>
+	)
 }
 
 export default App
