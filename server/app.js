@@ -1,13 +1,18 @@
 const express = require("express")
 const mongoose = require("mongoose")
 const bodyParser = require("body-parser")
+const cors = require("cors")
 const leadRoutes = require("./routes/leadRoutes")
-require('dotenv').config();
+require("dotenv").config()
 
 const app = express()
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3000
 
 app.use(bodyParser.json())
+app.use(cors({
+	origin: "*",
+	methods: "GET,HEAD,PUT,PATCH,POST,DELETE"
+}))
 
 const mongoURI = process.env.MONGO_URI
 
