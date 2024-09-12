@@ -1,10 +1,12 @@
-import FormPage from "./components/FormPage.tsx"
+import React from "react"
+import { BrowserRouter as Router } from "react-router-dom"
+import AppRoutes from "./routes/AppRoutes.tsx"
 
-const App = () => {
+const App: React.FC = () => {
 	return (
-		<div>
-			<FormPage/>
-		</div>
+		<Router>
+			<AppRoutes />
+		</Router>
 	)
 }
 
