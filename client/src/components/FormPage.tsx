@@ -11,15 +11,20 @@ const FormPage: React.FC = () => {
 	const [selectedRegion, setSelectedRegion] = useState<string | null>(null)
 	const [form] = Form.useForm()
 
-	const next = () => {
-		setCurrent(current + 1)
+	const next = async () => {
+		try {
+			await form.validateFields(["propertyType", "region", "district"])
+			setCurrent(current + 1)
+		} catch (error) {
+			console.log("Validation failed", error)
+		}
 	}
 
 	const prev = () => {
 		setCurrent(current - 1)
 	}
 
-	const onFinish = (values: any) => {
+	const onFinish = (values: unknown) => {
 		console.log("Form data: ", values)
 	}
 
