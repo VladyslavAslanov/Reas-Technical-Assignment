@@ -1,4 +1,6 @@
-export const districtsByRegion: Record<string, string[]> = {
+import { IDistrict } from "../types/Discrict.ts"
+
+export const districtsByRegion: IDistrict = {
 	prague: ["Prague"],
 	centralBohemian: ["Benešov", "Beroun", "Kladno", "Kolín", "Kutná Hora", "Mělník", "Mladá Boleslav", "Nymburk", "Praha-východ", "Praha-západ", "Příbram", "Rakovník"],
 	southBohemian: ["České Budějovice", "Český Krumlov", "Jindřichův Hradec", "Písek", "Prachatice", "Strakonice", "Tábor"],

@@ -1,19 +1,30 @@
 import React, { useState } from "react"
 import { Button, Form, Input, message, Select, Steps } from "antd"
-import { czechRegions } from "../data/czechRegions.ts"
-import { districtsByRegion } from "../data/districtsByRegion.ts"
+import { czechRegions } from "../data/czechRegions"
+import { districtsByRegion } from "../data/districtsByRegion"
 
 const { Option } = Select
 const { Step } = Steps
 
+interface FormValues {
+	propertyType?: string
+	region?: string
+	district?: string
+	fullName?: string
+	phoneNumber?: string
+	email?: string
+}
+
 const FormPage: React.FC = () => {
-	const [current, setCurrent] = useState(0)
+	const [current, setCurrent] = useState<number>(0)
 	const [selectedRegion, setSelectedRegion] = useState<string | null>(null)
+	const [formValues, setFormValues] = useState<FormValues>({})
 	const [form] = Form.useForm()
 
 	const next = async () => {
 		try {
-			await form.validateFields(["propertyType", "region", "district"])
+			const currentValues: FormValues = await form.validateFields()
+			setFormValues((prev: FormValues) => ({ ...prev, ...currentValues }))
 			setCurrent(current + 1)
 		} catch (error) {
 			console.log("Validation failed", error)
@@ -24,10 +35,12 @@ const FormPage: React.FC = () => {
 		setCurrent(current - 1)
 	}
 
-	const onFinish = (values: unknown) => {
-		console.log("Form data: ", values)
+	const onFinish = (values: FormValues) => {
+		const completeFormValues = { ...formValues, ...values }
+		console.log("Form data: ", completeFormValues)
 		void message.success("Form submitted successfully!")
 		form.resetFields()
+		setFormValues({})
 		setCurrent(0)
 	}
 
@@ -53,6 +66,7 @@ const FormPage: React.FC = () => {
 				onFinishFailed={onFinishFailed}
 				layout="vertical"
 				className="mt-6"
+				initialValues={formValues}
 			>
 				{current === 0 && (
 					<div>

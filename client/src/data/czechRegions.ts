@@ -1,4 +1,6 @@
-export const czechRegions = [
+import { IRegion } from "../types/Region"
+
+export const czechRegions: IRegion[] = [
 	{ label: "Prague", value: "prague" },
 	{ label: "Central Bohemian", value: "centralBohemian" },
 	{ label: "South Bohemian", value: "southBohemian" },
