@@ -2,6 +2,8 @@
 
 This is a full-stack application built with React, TypeScript, TailwindCSS, and Axios for the frontend, and Node.js, JavaScript, and Express.js for the backend, using MongoDB as the database.
 
+Visit on Vercel: [Reas Technical Assignment](https://reas-technical-assignment.vercel.app/)
+
 ## Installations
 
 Follow these steps to install and run the application on your local machine.
