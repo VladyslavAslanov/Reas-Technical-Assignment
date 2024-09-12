@@ -9,7 +9,7 @@ interface FormValues {
 	email?: string
 }
 
-const root = process.env.VITE_API_ROOT
+const root = "http://localhost:3000"
 
 export const submitLead = async (data: FormValues): Promise<any> => {
 	try {
