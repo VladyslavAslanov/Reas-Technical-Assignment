@@ -18,7 +18,7 @@ export const StepTwo: React.FC<StepTwoProps> = ({ prev, submit }) => {
 			</Form.Item>
 
 			<Form.Item
-				name="phoneNumber"
+				name="phone"
 				label="Phone Number"
 				rules={[
 					{ required: true, message: "Please enter your phone number!" },

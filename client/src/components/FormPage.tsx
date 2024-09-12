@@ -11,7 +11,7 @@ interface FormValues {
 	region?: string
 	district?: string
 	fullName?: string
-	phoneNumber?: string
+	phone?: string
 	email?: string
 }
 
