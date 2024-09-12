@@ -70,3 +70,6 @@ Follow these steps to install and run the application on your local machine.
 - **Node.js**
 - **Express.js**
 - **MongoDB**
+
+![Step One](./assets/StepOne.jpg)
+![Step Two](./assets/StepTwo.jpg)
