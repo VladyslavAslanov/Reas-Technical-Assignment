@@ -9,11 +9,11 @@ interface FormValues {
 	email?: string
 }
 
-const API_BASE_URL = "http://localhost:3000"
+const root = process.env.VITE_API_ROOT
 
 export const submitLead = async (data: FormValues): Promise<any> => {
 	try {
-		return await axios.post(`${API_BASE_URL}/lead`, data)
+		return await axios.post(`${root}/lead`, data)
 	} catch (error) {
 		console.error("API request failed", error)
 		throw error
