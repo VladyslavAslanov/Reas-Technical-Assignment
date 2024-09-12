@@ -26,13 +26,13 @@ const FormPage: React.FC = () => {
 
 	const onFinish = (values: unknown) => {
 		console.log("Form data: ", values)
-		message.success("Form submitted successfully!")
+		void message.success("Form submitted successfully!")
 		form.resetFields()
 		setCurrent(0)
 	}
 
 	const onFinishFailed = () => {
-		message.error("Form submission failed. Please try again.")
+		void message.error("Form submission failed. Please try again.")
 	}
 
 	const handleRegionChange = (value: string) => {
