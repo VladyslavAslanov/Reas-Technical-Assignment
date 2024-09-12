@@ -1,8 +1,8 @@
 import React, { useState } from "react"
-import { Button, Form, message, Steps } from "antd"
+import { Form, Steps } from "antd"
 import StepOne from "./StepOne"
 import StepTwo from "./StepTwo"
-import axios from "axios" // Import axios
+import useSubmitLead from "../hooks/useSubmitLead.ts"
 
 const { Step } = Steps
 
@@ -20,6 +20,8 @@ const FormPage: React.FC = () => {
 	const [selectedRegion, setSelectedRegion] = useState<string | null>(null)
 	const [formValues, setFormValues] = useState<FormValues>({})
 	const [form] = Form.useForm()
+
+	const { handleSubmit, loading } = useSubmitLead()
 
 	const next = async (): Promise<void> => {
 		try {
@@ -39,25 +41,21 @@ const FormPage: React.FC = () => {
 		const completeFormValues = { ...formValues, ...values }
 		console.log("Form data: ", completeFormValues)
 
-		try {
-			const response = await axios.post("http://localhost:3000/lead", completeFormValues)
-
-			if (response.status === 201) {
-				message.success("Form submitted successfully!")
+		await handleSubmit(
+			completeFormValues,
+			() => {
 				form.resetFields()
 				setFormValues({})
 				setCurrent(0)
-			} else {
-				message.error("Error submitting form.")
+			},
+			() => {
+				console.log("Form submission failed")
 			}
-		} catch (error) {
-			console.error("Error submitting form", error)
-			message.error("Form submission failed. Please try again.")
-		}
+		)
 	}
 
 	const onFinishFailed = (): void => {
-		message.error("Form submission failed. Please try again.")
+		console.log("Form submission failed")
 	}
 
 	const handleRegionChange = (value: string): void => {
@@ -81,11 +79,13 @@ const FormPage: React.FC = () => {
 				initialValues={formValues}
 			>
 				{current === 0 && (
-					<StepOne form={form} selectedRegion={selectedRegion} handleRegionChange={handleRegionChange} next={next} />
+					<StepOne selectedRegion={selectedRegion} handleRegionChange={handleRegionChange} next={next} />
 				)}
 
 				{current === 1 && <StepTwo prev={prev} submit={form.submit} />}
 			</Form>
+
+			{loading && <p>Submitting...</p>}
 		</div>
 	)
 }

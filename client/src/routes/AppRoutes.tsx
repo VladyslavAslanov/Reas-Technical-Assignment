@@ -11,7 +11,7 @@ const AppRoutes: React.FC = () => {
 				<Route path="/" element={<Navigate to="/request-real-estate" />} />
 			</Routes>
 		</Suspense>
-	);
-};
+	)
+}
 
 export default AppRoutes
