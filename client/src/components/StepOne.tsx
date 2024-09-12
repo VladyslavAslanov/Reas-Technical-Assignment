@@ -20,8 +20,8 @@ export const StepOne: React.FC<StepOneProps> = ({ selectedRegion, handleRegionCh
 	return (
 		<>
 			<Form.Item
-				name="propertyType"
-				label="Property Type"
+				name="estateType"
+				label="Estate Type"
 				rules={[{ required: true, message: "Please select the property type!" }]}
 			>
 				<Select placeholder="Select property type">
@@ -31,11 +31,7 @@ export const StepOne: React.FC<StepOneProps> = ({ selectedRegion, handleRegionCh
 				</Select>
 			</Form.Item>
 
-			<Form.Item
-				name="region"
-				label="Region"
-				rules={[{ required: true, message: "Please select the region!" }]}
-			>
+			<Form.Item name="region" label="Region" rules={[{ required: true, message: "Please select the region!" }]}>
 				<Select placeholder="Select region" onChange={handleRegionChange}>
 					{regions}
 				</Select>

@@ -1,12 +1,13 @@
 import React, { useState } from "react"
-import { Form, message, Steps } from "antd"
+import { Button, Form, message, Steps } from "antd"
 import StepOne from "./StepOne"
 import StepTwo from "./StepTwo"
+import axios from "axios" // Import axios
 
 const { Step } = Steps
 
 interface FormValues {
-	propertyType?: string
+	estateType?: string
 	region?: string
 	district?: string
 	fullName?: string
@@ -34,17 +35,29 @@ const FormPage: React.FC = () => {
 		setCurrent(current - 1)
 	}
 
-	const onFinish = (values: FormValues): void => {
+	const onFinish = async (values: FormValues): Promise<void> => {
 		const completeFormValues = { ...formValues, ...values }
 		console.log("Form data: ", completeFormValues)
-		void message.success("Form submitted successfully!")
-		form.resetFields()
-		setFormValues({})
-		setCurrent(0)
+
+		try {
+			const response = await axios.post("http://localhost:3000/lead", completeFormValues)
+
+			if (response.status === 201) {
+				message.success("Form submitted successfully!")
+				form.resetFields()
+				setFormValues({})
+				setCurrent(0)
+			} else {
+				message.error("Error submitting form.")
+			}
+		} catch (error) {
+			console.error("Error submitting form", error)
+			message.error("Form submission failed. Please try again.")
+		}
 	}
 
 	const onFinishFailed = (): void => {
-		void message.error("Form submission failed. Please try again.")
+		message.error("Form submission failed. Please try again.")
 	}
 
 	const handleRegionChange = (value: string): void => {
@@ -68,16 +81,10 @@ const FormPage: React.FC = () => {
 				initialValues={formValues}
 			>
 				{current === 0 && (
-					<StepOne
-						selectedRegion={selectedRegion}
-						handleRegionChange={handleRegionChange}
-						next={next}
-					/>
+					<StepOne form={form} selectedRegion={selectedRegion} handleRegionChange={handleRegionChange} next={next} />
 				)}
 
-				{current === 1 && (
-					<StepTwo prev={prev} submit={form.submit} />
-				)}
+				{current === 1 && <StepTwo prev={prev} submit={form.submit} />}
 			</Form>
 		</div>
 	)
