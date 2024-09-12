@@ -22,7 +22,7 @@ services:
     depends_on:
       - mongodb
     environment:
-      MONGO_URL: mongodb+srv://vladaslanov:vlad1213@reas.e7lvz.mongodb.net/leadsDB?retryWrites=true&w=majority
+      MONGO_URI: mongodb+srv://vladaslanov:vlad1213@reas.e7lvz.mongodb.net/leadsDB?retryWrites=true&w=majority
     volumes:
       - ./server:/app/server
       - /app/server/node_modules
@@ -32,14 +32,16 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: react_frontend
+    command: npm run dev
     ports:
       - "5137:5137"
     stdin_open: true
+    tty: true
+    environment:
+      VITE_BACKEND_URL: http://localhost:3000
     volumes:
       - ./client:/app/client
       - /app/client/node_modules
-    environment:
-      REACT_APP_BACKEND_URL: http://localhost:3000
     depends_on:
       - backend
 
