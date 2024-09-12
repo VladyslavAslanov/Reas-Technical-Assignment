@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { Button, Form, Input, Select, Steps } from "antd"
+import { Button, Form, Input, message, Select, Steps } from "antd"
 import { czechRegions } from "../data/czechRegions.ts"
 import { districtsByRegion } from "../data/districtsByRegion.ts"
 
@@ -26,6 +26,13 @@ const FormPage: React.FC = () => {
 
 	const onFinish = (values: unknown) => {
 		console.log("Form data: ", values)
+		message.success("Form submitted successfully!")
+		form.resetFields()
+		setCurrent(0)
+	}
+
+	const onFinishFailed = () => {
+		message.error("Form submission failed. Please try again.")
 	}
 
 	const handleRegionChange = (value: string) => {
@@ -43,6 +50,7 @@ const FormPage: React.FC = () => {
 				form={form}
 				name="propertyForm"
 				onFinish={onFinish}
+				onFinishFailed={onFinishFailed}
 				layout="vertical"
 				className="mt-6"
 			>
